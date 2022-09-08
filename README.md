@@ -22,6 +22,9 @@ import "engine_sim.mr"
 impulse_response_library ir_lib()
 units units()
 constants constants()
+
+label cycle((360 * 2) * units.deg)
+label rpmlimit(7500 * units.rpm)
 ```
 
 ### __Wires__
@@ -35,6 +38,7 @@ private node wires {
     output wire2: ignition_wire();
     output wire3: ignition_wire();
     output wire4: ignition_wire();
+}
 ```
 
 Each output defines a new wire used for your engine, 4 wires for a 4 cylinder. These will be called upon more later in the code.\
@@ -107,7 +111,8 @@ Next in line of your engine file, you should have a head node. This could also b
 Here's an example of a head node:
 ```
 private node i4_head {
-    input camshaft_set;
+    input intake_camshaft;
+    input exhaust_camshaft;
     input chamber_volume: 41.6 * units.cc;
     input intake_runner_volume: 149.6 * units.cc;
     input intake_runner_cross_section_area: 1.35 * units.inch * 1.35 * units.inch;
@@ -155,13 +160,15 @@ private node i4_head {
         .add_flow_sample(650, 228)
         .add_flow_sample(700, 228)
 
-    generic_cylinder_head head(
+    cylinder_head head(
         chamber_volume: chamber_volume,
         intake_runner_volume: intake_runner_volume,
         intake_runner_cross_section_area: intake_runner_cross_section_area,
         exhaust_runner_volume: exhaust_runner_volume,
         exhaust_runner_cross_section_area: exhaust_runner_cross_section_area,
 
+        intake_camshaft: intake_camshaft,
+        exhaust_camshaft: exhaust_camshaft,
         intake_port_flow: intake_flow,
         exhaust_port_flow: exhaust_flow,
         flip_display: flip_display
@@ -183,10 +190,10 @@ public node i4 {
     wires wires()
 
     engine engine(
-        name: "Inline 4 VTEC",
+        name: "Inline 4",
         starter_torque: 200 * units.lb_ft,
         starter_speed: 350 * units.rpm,
-        redline: 9400 * units.rpm,
+        redline: rpmlimit,
         throttle_gamma: 1.5,
 	fuel: fuel(
             max_turbulence_effect: 3.0,
@@ -327,37 +334,18 @@ public node i4 {
         steps: 100
     )
 
-    harmonic_cam_lobe vtec_intake_lobe(
-        duration_at_50_thou: 240 * units.deg,
-        gamma: 0.5,
-        lift: 11.5 * units.mm,
-        steps: 100
-    )
-
-    harmonic_cam_lobe vtec_exhaust_lobe(
-        duration_at_50_thou: 232 * units.deg,
-        gamma: 0.5,
-        lift: 10.5 * units.mm,
-        steps: 100
-    )
-
-    i4_vtec_camshaft camshaft(
+    i4_camshaft camshaft(
         lobe_profile: "N/A",
-        vtec_lobe_profile: "N/A",
 
         intake_lobe_profile: intake_lobe,
         exhaust_lobe_profile: exhaust_lobe,
-        vtec_intake_lobe_profile: vtec_intake_lobe,
-        vtec_exhaust_lobe_profile: vtec_exhaust_lobe,
         intake_lobe_center: 116 * units.deg,
         exhaust_lobe_center: 116 * units.deg,
-        vtec_intake_lobe_center: 100 * units.deg,
-        vtec_exhaust_lobe_center: 100 * units.deg,
         base_radius: 500 * units.thou
     )
 
     b0.set_cylinder_head (
-        i4_vtec_head(
+        i4_head(
             camshaft_set: camshaft
         )
     )
@@ -375,7 +363,7 @@ public node i4 {
 
     ignition_module ignition_module(
         timing_curve: timing_curve,
-        rev_limit: rpmlimit, //43244374
+        rev_limit: rpmlimit, 
         limiter_duration: 0.05
     )
 
