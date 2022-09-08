@@ -101,8 +101,8 @@ As you can see, for each cam, there is 4 lobes. This is a 4 cylinder after all. 
 
 >`rot360`: This defines half of a 4 stroke cycle or 360°\
 `intake_lobe_center` and `exhaust_lobe_center`: These define the centers or in this case the lobe separation between the intake and exhaust cam lobe angles\
-`0123`: This basically sets the order of which cams move when, these should be set in the firing order of your engine. See my [guide](https://github.com/OmegaPlatinumRain/angethegreat_engine_sim_guide/blob/main/README.md) on how to set these.\
-`rot180`: This is the firing interval of your motor. There is more info on this in my [guide](https://github.com/OmegaPlatinumRain/angethegreat_engine_sim_guide/blob/main/README.md_).
+`0123`: This basically sets the order of which cams move when, these should be set in the firing order of your engine. See my [guide](https://github.com/SnowyHype/angethegreat_engine_sim_guide#finding-cam-and-crank-orders) on how to set these.\
+`rot180`: This is the firing interval of your motor. There is more info on this in my [guide](https://github.com/SnowyHype/angethegreat_engine_sim_guide#finding-firing-intervals).
 
 ### __Heads__
 
@@ -445,7 +445,7 @@ The `diff_ratio` is the final drive of the rear differential of the simulated ve
 And the `tire_radius` is the radius of the wheel used on the simulated vehicle.
 
 ### __Main__
-This node should be public and is what is used to set your engine, transmission, and vehicle in your [main.mr](https://github.com/SnowyHype/angethegreat_engine_sim_guide/blob/main/README.md#what-is-a-mainmr)
+This node should be public and is what is used to set your engine, transmission, and vehicle in your `main.mr`
 
 A main node is fairly simple. This can be used if your engine, transmission, and vehicle nodes are all public ***or*** private. 
 
