@@ -1,7 +1,5 @@
 # How to Build an Engine on AngeTheGreat's Engine Sim
 
-Here's a working example: https://github.com/SnowyHype/engine_sim_tutorial_angethegreat/blob/main/i4_test.mr
-
 ## Step 1: Creating your engine file
 1. Go into your current used build of the engine simulator, then into the `assets` folder then into the `engines` folder and right click to create a file.
 2. Select create new text file, and name it what you want it to be named, for example, `mycustomengine.mr`
@@ -348,7 +346,8 @@ public node i4 {
 
     b0.set_cylinder_head (
         i4_head(
-            camshaft_set: camshaft
+            intake_camshaft: camshaft.intake_cam,
+            exhaust_camshaft: camshaft.exhaust_cam
         )
     )
 
