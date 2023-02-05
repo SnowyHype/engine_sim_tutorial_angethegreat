@@ -457,39 +457,11 @@ public node main {
     set_vehicle(i4_vehicle())
     set_transmission(i4_transmission())
 }
+main()
 ```
 > **Set Engine:** This is used to define the engine node in your `main.mr` file.\
 **Set Vehicle:** This is used to define the vehicle node in your `main.mr` file.\
 **Set Transmission:** This is used to define the transmission node in your `main.mr` file.
 >
-
-## Step 4: Setting your main.mr
-
-Your `main.mr` file is what the simulator looks at to see what to load. I've made a more detailed guide on this [here](https://github.com/SnowyHype/angethegreat_engine_sim_guide/blob/main/README.md#what-is-a-mainmr).
-
-Here's a quick example of what your main.mr should look like if you are using a main node:
-```
-import "engine_sim.mr"
-import "themes/default.mr"
-import "engines/custom/i4.mr"
-
-use_default_theme()
-main()
-```
-
-Here's a quick example of what your main.mr should look like if you are ***not*** using a main node:
-
-```
-import "engine_sim.mr"
-import "themes/default.mr"
-import "engines/kohler/kohler_ch750.mr"
-
-use_default_theme()
-set_engine(i4())
-set_transmission(i4_transmission())
-set_vehicle(i4_vehicle())
-```
-
-To further understand this, please check out my [guide](https://github.com/SnowyHype/angethegreat_engine_sim_guide/blob/main/README.md#what-is-a-mainmr)
 
 __**Last step is to run the `engine_sim_app.exe` file and see if you messed anything up. Nobody gets it right on the first try! :P**__
