@@ -115,7 +115,7 @@ private node i4_head {
     )
 }
 
-public node i4 {
+private node i4 {
     alias output __out: engine;
 
     wires wires()
@@ -308,7 +308,7 @@ public node i4 {
     engine.add_ignition_module(ignition_module)
 }
 
-public node i4_vehicle {
+private node i4_vehicle {
    input mass: 1000 * units.lb;
    input diff_ratio: 4.529;
    input tire_radius: 12.65 * units.inch;
@@ -322,7 +322,7 @@ public node i4_vehicle {
    )
 }
 
-public node i4_transmission {
+private node i4_transmission {
     input max_clutch_torque: 300 * units.lb_ft;
     alias output __out:
         transmission(max_clutch_torque)
@@ -339,3 +339,5 @@ public node main {
     set_vehicle(i4_vehicle())
     set_transmission(i4_transmission())
 }
+
+main()
